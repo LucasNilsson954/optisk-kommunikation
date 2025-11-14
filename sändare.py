@@ -27,7 +27,6 @@ from typing import Tuple
 from time import sleep
 
 import numpy as np
-import numpy.typing
 
 import nidaqmx
 from nidaqmx.constants import AcquisitionType
@@ -107,7 +106,7 @@ def send_pulses(morse):
 
 
 
-        print(morse)
+        #print(morse)
         for i in range(len(morse)):
             #print(i)
             if (i != 0 and morse[i - 1] == MORSE_CODE_DICT["STOP"]):
@@ -127,16 +126,6 @@ def send_pulses(morse):
         task.stop()
 
 
-
-def hämta():
-    #print("Hämtning startad")
-    with open("output.txt", 'r', encoding='utf8') as f:
-        imported_text = f.read()
-        print(imported_text)
-        #hämtadData.config(text=imported_text)
-    f.close()
-    #print("Hämtning klar")
-    return
 
 def skicka():
     global stop

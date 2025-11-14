@@ -1,23 +1,15 @@
 import nidaqmx
 import nidaqmx.stream_readers
 import numpy as np
-import time
 import config
 import json
 import datetime
-import math
 import tkinter as tk
 import threading
 import json
 
 from nidaqmx.constants import AcquisitionType
 
-import matplotlib.pyplot as plt
-
-def write_output_to_file(text):
-  with open("output.txt", "w", encoding="utf-8") as f:
-    f.write(text)
-  f.close()
 
 def append_output_to_history(text):
   history = ""
@@ -52,7 +44,6 @@ def listen():
     try:
       readTask.ai_channels.add_ai_voltage_chan("Dev1/ai0")
     except Exception as e:
-      print("buh oh")
       error_popup(e)
       return
 
@@ -164,7 +155,7 @@ def listen():
             #print("turned on, lamp was off for: ", time_passed_off)
 
             if (time_passed_off > ((1.5 * short_pulse - short_pulse * 0.2)) and time_passed_off < ((2 * short_pulse + short_pulse * 1))):
-              print("time off: ", time_passed_off)
+              #print("time off: ", time_passed_off)
               #print("NEW LETTER!!")
               letter = handle_text(current_morse_letter)
               global decoded_text
@@ -179,7 +170,7 @@ def listen():
                 idle()
 
                 update_latest_message(decoded_text.strip())
-                print("\ndu fick meddelandet:\n"+decoded_text.strip())
+                #print("\ndu fick meddelandet:\n"+decoded_text.strip())
                 #write_output_to_file(decoded_text.strip())
                 append_output_to_history(decoded_text.strip())
                 decoded_text = ""
@@ -194,7 +185,6 @@ def listen():
               #print(decoded_text.strip())
               global show_new_text
               show_new_text(decoded_text.strip())
-              write_output_to_file(decoded_text.strip())
               current_morse_letter = ""
               #time.sleep(0.01)
 
@@ -211,7 +201,7 @@ def listen():
           #  print(time_passed_off)
 
           if (average > 0 and factor > 10 and isOn and time_passed_on > 5):
-            print(time_passed_on)
+            #print(time_passed_on)
             #print("off")
             isOn = False
             #print("turned off, lamp was on for: ", time_passed_on)
@@ -285,7 +275,7 @@ getting_text = False
 def show_new_text(text):
   global getting_text
   getting_text = True
-  print(text)
+  #print(text)
   gathered_text.config(state="normal")
   gathered_text.delete("1.0", "end")
   gathered_text.insert("1.0", text)
